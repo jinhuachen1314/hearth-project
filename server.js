@@ -15,10 +15,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-  console.log(req.query);
-  console.log(list.houses)
-  // Get results here.
-  res.send({ hey: "yes" });
+  const { address } = req.query;
+
+  const house = list.houses.find(house => {
+    return house.ADDRESS === address;
+  });
+
+  res.send({ result: house });
 });
 
 const port = 5000;
