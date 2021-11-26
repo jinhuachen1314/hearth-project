@@ -9,9 +9,11 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Search endpoint
-app.get('/', (req, res) => {
-  res.send(list.houses);
+// Get addresses of the houses.
+app.get('/address', (req, res) => {
+  console.log("RUN HERE");
+  const addresses = list.houses.map(house => house["ADDRESS"]);
+  res.send(addresses);
 });
 
 app.get('/search', (req, res) => {

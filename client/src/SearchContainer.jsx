@@ -1,22 +1,35 @@
 import { isEmpty } from "lodash";
-import React, { useState } from "react";
-import SearchBar from "./SearchBar";
+import React, { useEffect, useState } from "react";
 import SearchResult from "./SearchResults";
 import axios from 'axios';
+import styled from 'styled-components';
+import { Autocomplete, Button, TextField } from "@mui/material";
 
+const Container = styled.div`
+  width: 300px;
+`
 const SearchContainer = () => {
-  const [query, setQuery] = useState('');
   const [result, setResult] = useState({});
+  const [value, setValue] = useState(null);
+  const [addressList, setAddressList] = useState([]);
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setQuery(value);
+  useEffect(() => {
+    const getList = async () => {
+      const list = await axios.get('/address');
+      setAddressList(list.data);
+    }
+
+    getList();
+  }, []);
+
+  const handleValueChange = (e, value, reason) => {
+    setValue(value);
   }
 
   const getSearchResult = async (callback) => {
     try {
       const response = await axios.get('/search', {
-        params: { address: query }
+        params: { address: value }
       });
 
       callback(response.data.result);
@@ -26,17 +39,42 @@ const SearchContainer = () => {
   }
 
   const handleSubmit = () => {
-    if (query === "") return;
+    if (value === "") return;
     getSearchResult(setResult);
+  }
+
+  const handleClearResult = () => {
+    setResult({});
+    setValue(null);
   }
 
   return (
     <>
-      <SearchBar
-        handleChange={handleChange}
-        handleSubmit={handleSubmit} 
-        query={query}
-      />
+      Search Address:
+      <Container>
+        <Autocomplete
+          onInputChange={handleValueChange}
+          options={addressList}
+          renderInput={params => (
+            <TextField 
+              {...params}
+              label="Search Address"
+            />
+          )}
+          value={value}
+        />
+        <Button 
+          onClick={handleSubmit}
+          variant="contained"
+        >
+          Submit
+        </Button>
+        <Button
+          onClick={handleClearResult}
+        >
+          Clear Result
+        </Button>
+      </Container>
       {!isEmpty(result) && <SearchResult result={result} />}
     </>
   );

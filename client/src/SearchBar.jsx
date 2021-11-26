@@ -1,23 +1,48 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import AutoComplete from '@mui/material/Autocomplete';
+import { Button, TextField } from "@mui/material";
 
-const SearchBar = ({ handleChange, query, handleSubmit}) => {
+const SearchBar = ({ option, handleInputChange, handleSubmit, handleClearResult}) => {
+
   return (
     <>
       Search Addres:
-      <input 
-        value={query}
-        onChange={handleChange}
-      />
-      <button onClick={handleSubmit}>Submit</button>
+      <>
+        <AutoComplete 
+          options={option}
+          renderInput={
+            params => {
+              return (
+              <TextField 
+                {...params}
+                label="Search Address"
+              />
+            )}
+          }
+        />
+        <Button 
+          onClick={handleSubmit}
+          variant="contained"
+        >
+          Submit
+        </Button>
+        <Button
+          onClick={handleClearResult}
+        >
+          Clear Result
+        </Button>
+      </>
     </>
   );
 }
 
 SearchBar.propTypes = {
-  handleChange: PropTypes.func,
+  handleClearResult: PropTypes.func,
+  handleInputChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  query: PropTypes.string,
+  inputValue: PropTypes.string,
+  option: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default SearchBar;
