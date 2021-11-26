@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { Autocomplete, Button, TextField } from "@mui/material";
 
 const Container = styled.div`
-  width: 300px;
+  display: flex;
+  justify-content: center;
 `
 const SearchContainer = () => {
   const [result, setResult] = useState({});
@@ -50,7 +51,6 @@ const SearchContainer = () => {
 
   return (
     <>
-      Search Address:
       <Container>
         <Autocomplete
           onInputChange={handleValueChange}
@@ -61,6 +61,7 @@ const SearchContainer = () => {
               label="Search Address"
             />
           )}
+          sx={{ width: 300 }}
           value={value}
         />
         <Button 

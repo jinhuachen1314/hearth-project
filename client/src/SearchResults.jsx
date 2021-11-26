@@ -1,6 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Table from "./Table";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const HOME_FACTS_KEYS = [
   "PROPERTY TYPE", "LOT SIZE", "YEAR BUILT", 
@@ -37,11 +43,11 @@ const SearchResult = ({ result }) => {
   console.log(basic_info)
 
   return (
-    <>
+    <Container>
       <Table content={home_facts} />
       <Table content={price_insights} />
       <Table content={basic_info} />
-    </>
+    </Container>
   );
 }
 
