@@ -68,7 +68,7 @@ const SearchContainer = () => {
           onClick={handleSubmit}
           variant="contained"
         >
-          Submit
+          Search
         </Button>
         <Button
           onClick={handleClearResult}

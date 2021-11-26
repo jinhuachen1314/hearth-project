@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Table from "./Table";
-import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`
+import BasicInfo from "./BasicInfo";
+import { Stack } from "@mui/material";
 
 const HOME_FACTS_KEYS = [
   "PROPERTY TYPE", "LOT SIZE", "YEAR BUILT", 
@@ -21,7 +17,7 @@ const PRICE_INSIGHTS_KEYS = [
 const BASIC_INFO_KEYS = [
   "ADDRESS", "CITY", "STATE OR PROVINCE",
   "ZIP OR POSTAL CODE", "SQUARE FEET", "BEDS",
-  "BATHS",
+  "BATHS", "PRICE"
 ]
 
 const SearchResult = ({ result }) => {
@@ -31,28 +27,28 @@ const SearchResult = ({ result }) => {
   for (const key in result) {
     if (PRICE_INSIGHTS_KEYS.includes(key)) {
       price_insights[key] = result[key];
-    } else if (BASIC_INFO_KEYS.includes(key)) {
+    } 
+    
+    if (BASIC_INFO_KEYS.includes(key)) {
       basic_info[key] = result[key];
-    } else if (HOME_FACTS_KEYS.includes(key)) {
+    }
+    
+    if (HOME_FACTS_KEYS.includes(key)) {
       home_facts[key] = result[key];
     }
   }
 
-  console.log(home_facts)
-  console.log(price_insights)
-  console.log(basic_info)
-
   return (
-    <Container>
-      <Table content={home_facts} />
-      <Table content={price_insights} />
-      <Table content={basic_info} />
-    </Container>
+    <Stack>
+      <BasicInfo content={basic_info} />
+      <Table content={home_facts} header="Home Facts" />
+      <Table content={price_insights} header="Price Insights" />
+    </Stack>
   );
 }
 
 SearchResult.propTypes = {
-  result: PropTypes.object
+  result: PropTypes.object,
 }
 
 export default SearchResult;
