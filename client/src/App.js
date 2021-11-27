@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="App">
       <header>
-        <p>
+        <h3>
           A simple address search system.
-        </p>
+        </h3>
       </header>
       <SearchContainer />      
     </div>

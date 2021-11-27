@@ -3,36 +3,33 @@ import PropTypes from 'prop-types';
 import AutoComplete from '@mui/material/Autocomplete';
 import { Button, TextField } from "@mui/material";
 
-const SearchBar = ({ option, handleInputChange, handleSubmit, handleClearResult}) => {
-
+const SearchBar = ({ option, handleSubmit, handleClearResult}) => {
   return (
     <>
       Search Addres:
-      <>
-        <AutoComplete 
-          options={option}
-          renderInput={
-            params => {
-              return (
-              <TextField 
-                {...params}
-                label="Search Address"
-              />
-            )}
-          }
-        />
-        <Button 
-          onClick={handleSubmit}
-          variant="contained"
-        >
-          Submit
-        </Button>
-        <Button
-          onClick={handleClearResult}
-        >
-          Clear Result
-        </Button>
-      </>
+      <AutoComplete 
+        options={option}
+        renderInput={
+          params => {
+            return (
+            <TextField 
+              {...params}
+              label="Search Address"
+            />
+          )}
+        }
+      />
+      <Button 
+        onClick={handleSubmit}
+        variant="contained"
+      >
+        Submit
+      </Button>
+      <Button
+        onClick={handleClearResult}
+      >
+        Clear Result
+      </Button>
     </>
   );
 }

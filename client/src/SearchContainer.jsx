@@ -2,13 +2,15 @@ import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import SearchResult from "./SearchResults";
 import axios from 'axios';
-import styled from 'styled-components';
 import { Autocomplete, Button, TextField } from "@mui/material";
+import { styled } from "@mui/system";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`
+const Container = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  width: "800px",
+  margin: "auto",
+});
 
 const SearchContainer = () => {
   const [result, setResult] = useState({});
@@ -60,9 +62,10 @@ const SearchContainer = () => {
             <TextField 
               {...params}
               label="Search Address"
+              style={{ fontFamily: "Libre Franklin" }}
             />
           )}
-          sx={{ width: 300 }}
+          style={{ flexGrow: 1 }}
           value={value}
         />
         <Button 

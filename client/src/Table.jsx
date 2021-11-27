@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Grid } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { Box, Grid } from "@mui/material";
+import { styled } from "@mui/system";
 
 const GreySpan = styled("span")({
   color: "grey",
@@ -9,17 +9,19 @@ const GreySpan = styled("span")({
 
 const Table = ({ content, header }) => {
   return (
-    <Box>
-      <h1>{header}</h1>
-      <Grid columns={4} container spacing={1}>
+    <Box sx={{ width: "800px", margin: "auto" }}>
+      <h2>{header}</h2>
+      <Grid columnSpacing={10} columns={2} container>
         {Object.keys(content).map((key, idx) => {
           return (
-            <Grid columns={4} container key={idx} xs={2}>
-              <Grid item style={{ textAlign: "left" }} xs={2}>
-                <GreySpan>{key}</GreySpan>
-              </Grid>
-              <Grid item style={{ textAlign: "right" }} xs={2}>
-                {content[key]}
+            <Grid item key={idx} xs={1}>
+              <Grid container>
+                <Grid item style={{ textAlign: "left" }} xs={1}>
+                  <GreySpan>{key}</GreySpan>
+                </Grid>
+                <Grid item style={{ textAlign: "right" }} xs={1}>
+                  {content[key]}
+                </Grid>
               </Grid>
             </Grid>
           );
