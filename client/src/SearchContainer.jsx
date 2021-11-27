@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `
+
 const SearchContainer = () => {
   const [result, setResult] = useState({});
   const [value, setValue] = useState(null);
