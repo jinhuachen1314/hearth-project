@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Link } from "@mui/material";
-import PropTypes from 'prop-types';
 import { styled } from "@mui/system";
+import PropTypes from 'prop-types';
 
 const URL_KEY = "URL (SEE http://www.redfin.com/buy-a-home/comparative-market-analysis FOR INFO ON PRICING)";
 

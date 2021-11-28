@@ -19,21 +19,21 @@ const MarkerDiv = styled("div")({
   backgroundColor: "red",
 });
 
-const Marker = (props) => {
-  return (
-    <MarkerDiv />
-  );
-}
+const Marker = () => <MarkerDiv />;
 
 const SimpleMap = ({ lat, lng }) => {
   const [center, setCenter] = useState(DEFAULT_CENTER);
 
+  /**
+   * Listens to lat and lng change, re-center the marker on map.
+   */
   useEffect(() => {
     setCenter([lat, lng]);
   }, [lat, lng]);
 
   return (
     <Box style={{ height: "300px", width: "800px", margin: "20px auto 0" }}>
+      {/* For development purpose, didn't sign up with API key */}
       <GoogleMapReact 
         center={center}
         zoom={DEFAULT_ZOOM}

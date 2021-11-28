@@ -1,8 +1,8 @@
 import React from "react";
+import { Stack } from "@mui/material";
 import PropTypes from 'prop-types';
 import Table from "./Table";
 import BasicInfo from "./BasicInfo";
-import { Stack } from "@mui/material";
 import SimpleMap from "./SimpleMap";
 
 const URL_KEY = "URL (SEE http://www.redfin.com/buy-a-home/comparative-market-analysis FOR INFO ON PRICING)";
@@ -28,19 +28,38 @@ const OPEN_HOUSE_TIMES = [
 ];
 
 const SearchResult = ({ result }) => {
-  const basic_info = {}, home_facts = {}, price_insights = {}, open_house_times = {};
+  const basic_info = {},          // Home basic information object
+        home_facts = {},          // Home fact object
+        price_insights = {},      // Home price insight object
+        open_house_times = {};    // Home open house time object
   
+  /**
+   * Format the value accordingly.
+   * 
+   * @param {string} key Home information's key
+   * @param {string} value Home information's key's value
+   * @returns {string} Formatted string
+   */
   const formatValue = (key, value) => {
     if (value === "") return "N/A";
 
+    /**
+     * Value is a number in a string format, insert comma separator.
+     */
     if (["PRICE", "SQUARE FEET", "LOT SIZE", "$/SQUARE FEET"].includes(key)) {
       value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
+    /**
+     * Value is a price, insert dollar sign at the front.
+     */
     if (["PRICE", "$/SQUARE FEET"].includes(key)) {
       value = `$${value}`;
     }
 
+    /**
+     * Value is an area, insert a unit.
+     */
     if (["LOT SIZE"].includes(key)) {
       value = `${value} Sq. Ft.`;
     }
@@ -48,6 +67,9 @@ const SearchResult = ({ result }) => {
     return value;
   }
 
+  /**
+   * Iterate the result object, arrange them to corresponding object.
+   */
   for (const key in result) {
     const value = formatValue(key, result[key]);
 

@@ -1,9 +1,9 @@
 import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
-import SearchResult from "./SearchResults";
 import axios from 'axios';
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { styled } from "@mui/system";
+import SearchResult from "./SearchResults";
 
 const Container = styled("div")({
   display: "flex",
@@ -17,6 +17,9 @@ const SearchContainer = () => {
   const [value, setValue] = useState(null);
   const [addressList, setAddressList] = useState([]);
 
+  /**
+   * Load addresses when page is loaded, ie, component is mounted.
+   */
   useEffect(() => {
     const getList = async () => {
       const list = await axios.get('/address');
@@ -25,28 +28,44 @@ const SearchContainer = () => {
 
     getList();
   }, []);
-
-  const handleValueChange = (e, value, reason) => {
-    setValue(value);
-  }
-
+  
+  /**
+   * Fetch home detail.
+   * 
+   * @param {Func} callback Callback used for a successful resolved result. 
+   */
   const getSearchResult = async (callback) => {
     try {
       const response = await axios.get('/search', {
         params: { address: value }
       });
-
       callback(response.data.result);
     } catch (error) {
       // TODO, catch error
     }
   }
 
+  /**
+   * Event handler, set search query.
+   * 
+   * @param {Event} e Event
+   * @param {string} value Option user selects/enters 
+   */
+  const handleValueChange = (e, value) => {
+    setValue(value);
+  }
+
+  /**
+   * Event handler, listens to click on search button.
+   */
   const handleSubmit = () => {
     if (value === "") return;
     getSearchResult(setResult);
   }
 
+  /**
+   * Event handler, clears the result and search query.
+   */
   const handleClearResult = () => {
     setResult({});
     setValue(null);

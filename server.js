@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const HouseList = require('./HouseList');
-const list = new HouseList();
+const list = new HouseList();   // Create house list instance.
 
 /**
  * Initialize house list.
