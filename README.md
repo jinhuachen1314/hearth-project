@@ -12,7 +12,7 @@ With a simple user-interface, user can simply enter search query, or open the dr
 ## Installation
 Install dependencies on both ends.
 
-Navigate to the root that (.) contains server side's dependencies.
+Navigate to the root (.) that contains server side's dependencies.
 ```
 cd . 
 npm install --save
